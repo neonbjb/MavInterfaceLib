@@ -1,6 +1,7 @@
 package com.appliedanalog.uav.mav;
 
 import com.MAVLink.Messages.ardupilotmega.msg_heartbeat;
+import com.MAVLink.Messages.ardupilotmega.msg_hwstatus;
 import com.MAVLink.Messages.ardupilotmega.msg_meminfo;
 import com.MAVLink.Messages.ardupilotmega.msg_statustext;
 import com.MAVLink.Messages.ardupilotmega.msg_sys_status;
@@ -19,7 +20,8 @@ public class MavStatusHandler {
     HashMap<Integer, Long> last_heartbeats;
     
     int boot_time_ms;
-    long system_time_ms;
+    long system_time_us;
+    short system_voltage_mv;
     
     public MavStatusHandler(){
         component_availability = new MavComponentAvailability();
@@ -60,7 +62,11 @@ public class MavStatusHandler {
     
     public void handleSystemTime(msg_system_time msg){
         boot_time_ms = msg.time_boot_ms;
-        system_time_ms = msg.time_unix_usec;
+        system_time_us = msg.time_unix_usec;
+    }
+    
+    public void handleHwStatus(msg_hwstatus msg){
+        system_voltage_mv = msg.Vcc;
     }
     
     //Getters
@@ -78,6 +84,14 @@ public class MavStatusHandler {
      * @return 
      */
     public long getSystemTime(){
-        return system_time_ms;
+        return system_time_us;
+    }
+    
+    /**
+     * Returns the voltage applied to the controller card in mV.
+     * @return 
+     */
+    public short getSystemVoltage(){
+        return system_voltage_mv;
     }
 }

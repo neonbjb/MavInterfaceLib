@@ -102,6 +102,9 @@ public class MavHandler implements MavLinkConnectionListener {
             case msg_ahrs.MAVLINK_MSG_ID_AHRS:
                 sensorHandler.handleAhrs((msg_ahrs)msg);
                 break;
+            case msg_wind.MAVLINK_MSG_ID_WIND:
+                sensorHandler.handleWind((msg_wind)msg);
+                break;
                 
             //Status messages:
             case msg_sys_status.MAVLINK_MSG_ID_SYS_STATUS:
@@ -118,6 +121,9 @@ public class MavHandler implements MavLinkConnectionListener {
                 break;
             case msg_system_time.MAVLINK_MSG_ID_SYSTEM_TIME:
                 statusHandler.handleSystemTime((msg_system_time)msg);
+                break;
+            case msg_hwstatus.MAVLINK_MSG_ID_HWSTATUS:
+                statusHandler.handleHwStatus((msg_hwstatus)msg);
                 break;
                 
             //Mission messages:

@@ -7,7 +7,7 @@ import com.appliedanalog.uav.utils.Log;
  *
  * @author James
  */
-public class SensorTester extends MavSensorListener{
+public class SensorTester implements MavSensorListener{
     final String TAG = "SensorTester";
 
     @Override
@@ -30,7 +30,18 @@ public class SensorTester extends MavSensorListener{
     }
 
     @Override
-    public void groundSpeed(float gspd, float heading) {
+    public void groundSpeed(float heading, float gspd) {
+        Log.ta(TAG, "groundSpeed speed=" + gspd + " heading=" + heading);
+    }
+
+    @Override
+    public void pressure(float abs_pressure, float temperature) {
+        Log.ta(TAG, "pressure abs=" + abs_pressure + " temp=" + temperature);
+    }
+
+    @Override
+    public void derivedWind(float direction, float speed) {
+        Log.ta(TAG, "wind direction=" + direction + " speed=" + speed);
     }
     
 }
