@@ -6,12 +6,12 @@ import com.appliedanalog.uav.mav.MavComponentAvailability;
  * Interface for classes interested in receiving misc MAV status information,
  * such as system time, heartbeats, etc.
  */
-public abstract class MavStatusListener {
+public interface MavStatusListener {
     /**
      * Message triggered when the availability/enabled state/health of system components changes.
      * @param availability 
      */
-    public void componentAvailabilityChanged(MavComponentAvailability availability){ }
+    public void componentAvailabilityChanged(MavComponentAvailability availability);
     
     /**
      * Sends data relating to the systems power status. Only sent when a current sensor is configured on the board.
@@ -19,5 +19,5 @@ public abstract class MavStatusListener {
      * @param voltage Probed battery voltage, in mV.
      * @param batteryRemaining Remaining battery, in percent.
      */
-    public void power(int current, int voltage, int batteryRemaining){ }
+    public void power(int current, int voltage, int batteryRemaining);
 }
