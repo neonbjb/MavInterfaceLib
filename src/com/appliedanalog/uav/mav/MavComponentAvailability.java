@@ -1,5 +1,7 @@
 package com.appliedanalog.uav.mav;
 
+import com.appliedanalog.uav.utils.Log;
+
 /**
  * This class is used by MavStatusHandler to parse and represent whether or not
  * certain sensors are present on the device.
@@ -11,10 +13,10 @@ public class MavComponentAvailability {
             component_index = index;
         }
         
-        public boolean parse(int p, int e, int h){
-            boolean np = ((p & (1 >> component_index)) != 0);
-            boolean ne = ((e & (1 >> component_index)) != 0);
-            boolean nh = ((h & (1 >> component_index)) != 0);
+        public boolean parse(int p, int e, int h){        
+            boolean np = ((p & (1 << component_index)) != 0);
+            boolean ne = ((e & (1 << component_index)) != 0);
+            boolean nh = ((h & (1 << component_index)) != 0);
             boolean result = (np ^ present) || (ne ^ enabled) || (nh ^ health);
             present = np;
             enabled = ne;
