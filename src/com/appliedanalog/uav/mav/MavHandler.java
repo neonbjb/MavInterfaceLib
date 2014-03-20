@@ -310,7 +310,7 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_debug)msg); break;
              */
             default:
-                Log.d(TAG, "Currently unsuported message - " + msg.getClass().toString());
+                Log.mav(TAG, "Currently unsuported message - " + msg.getClass().toString());
         }
     }
 

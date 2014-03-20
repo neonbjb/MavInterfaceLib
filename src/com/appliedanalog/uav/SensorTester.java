@@ -12,7 +12,7 @@ public class SensorTester extends MavSensorListener{
 
     @Override
     public void attitude(float pitch, float roll, float yaw) {
-        Log.d(TAG, "attitude p=" + Math.toDegrees(pitch) + " r=" + Math.toDegrees(roll) + " y=" + Math.toDegrees(yaw));
+        Log.ta(TAG, "attitude p=" + Math.toDegrees(pitch) + " r=" + Math.toDegrees(roll) + " y=" + Math.toDegrees(yaw));
     }
 
     @Override
@@ -21,12 +21,12 @@ public class SensorTester extends MavSensorListener{
 
     @Override
     public void position(float lat, float lon) {
-        Log.d(TAG, "position lat=" + lat + " lon=" + lon);
+        Log.ta(TAG, "position lat=" + lat + " lon=" + lon);
     }
 
     @Override
     public void altitude(float msl, float agl) {
-        Log.d(TAG, "altitude msl=" + msl + " agl=" + agl);
+        Log.ta(TAG, "altitude msl=" + msl + " agl=" + agl);
     }
 
     @Override

@@ -20,8 +20,6 @@ public class WindowsSerialConnection extends MAVLinkConnection implements Serial
     private static final String COM_PORT = "COM10";
     private static final int BAUD_RATE = SerialPort.BAUDRATE_115200;
     
-    public static final boolean DEBUG_COM = false;
-    
     private byte[] localBuffer;
 
     public WindowsSerialConnection() {
@@ -54,15 +52,13 @@ public class WindowsSerialConnection extends MAVLinkConnection implements Serial
             }
             iavailable = buf.length;
             System.arraycopy(buf, 0, readData, 0, buf.length);
-            if(DEBUG_COM){
-                Log.d("USB", "Bytes read" + iavailable);
-                String msg = "{";
-                for(int i = 0; i < iavailable; i++){
-                    msg += Log.byteHexString(buf[i]) + ", ";
-                }
-                msg += "}";
-                Log.d("USB", msg);
+            Log.ser("USB", "Bytes read" + iavailable);
+            String msg = "{";
+            for(int i = 0; i < iavailable; i++){
+                msg += Log.byteHexString(buf[i]) + ", ";
             }
+            msg += "}";
+            Log.ser("USB", msg);
         }catch(SerialPortException e){
             throw new IOException(e.getMessage());
         }
@@ -75,18 +71,14 @@ public class WindowsSerialConnection extends MAVLinkConnection implements Serial
         try{
             if(serialPort.isOpened()){
                 serialPort.writeBytes(buffer);
-                if(DEBUG_COM){
-                    String msg = "{";
-                    for(byte b : buffer){
-                        msg += Log.byteHexString(b) + ", ";
-                    }
-                    msg += "}";
-                    Log.d("USB", msg);
+                String msg = "{";
+                for(byte b : buffer){
+                    msg += Log.byteHexString(b) + ", ";
                 }
+                msg += "}";
+                Log.ser("USB", msg);
             }else{
-                if(DEBUG_COM){
-                    Log.d("USB", "Serial port is not opened.");
-                }
+                Log.ser("USB", "Serial port is not opened.");
             }
         }catch(Exception e){
             Log.exception(e);
