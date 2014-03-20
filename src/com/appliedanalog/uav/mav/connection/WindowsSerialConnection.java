@@ -20,12 +20,14 @@ public class WindowsSerialConnection extends MAVLinkConnection implements Serial
     private static final String COM_PORT = "COM10";
     private static final int BAUD_RATE = SerialPort.BAUDRATE_115200;
     
+    public static final boolean DEBUG_COM = false;
+    
     private byte[] localBuffer;
 
     public WindowsSerialConnection() {
         super();
     }
-
+    
     @Override
     protected void openConnection() throws UnknownHostException, IOException {
         serialPort = new SerialPort(COM_PORT);
@@ -52,7 +54,15 @@ public class WindowsSerialConnection extends MAVLinkConnection implements Serial
             }
             iavailable = buf.length;
             System.arraycopy(buf, 0, readData, 0, buf.length);
-            Log.d("USB", "Bytes read" + iavailable);
+            if(DEBUG_COM){
+                Log.d("USB", "Bytes read" + iavailable);
+                String msg = "{";
+                for(int i = 0; i < iavailable; i++){
+                    msg += Log.byteHexString(buf[i]) + ", ";
+                }
+                msg += "}";
+                Log.d("USB", msg);
+            }
         }catch(SerialPortException e){
             throw new IOException(e.getMessage());
         }
@@ -65,6 +75,18 @@ public class WindowsSerialConnection extends MAVLinkConnection implements Serial
         try{
             if(serialPort.isOpened()){
                 serialPort.writeBytes(buffer);
+                if(DEBUG_COM){
+                    String msg = "{";
+                    for(byte b : buffer){
+                        msg += Log.byteHexString(b) + ", ";
+                    }
+                    msg += "}";
+                    Log.d("USB", msg);
+                }
+            }else{
+                if(DEBUG_COM){
+                    Log.d("USB", "Serial port is not opened.");
+                }
             }
         }catch(Exception e){
             Log.exception(e);

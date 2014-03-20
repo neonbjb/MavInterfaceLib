@@ -7,12 +7,12 @@ import com.appliedanalog.uav.utils.Log;
  *
  * @author James
  */
-public class SensorTester implements MavSensorListener{
+public class SensorTester extends MavSensorListener{
     final String TAG = "SensorTester";
 
     @Override
     public void attitude(float pitch, float roll, float yaw) {
-        Log.d(TAG, "attitude p=" + pitch + " r=" + roll + " y=" + yaw);
+        Log.d(TAG, "attitude p=" + Math.toDegrees(pitch) + " r=" + Math.toDegrees(roll) + " y=" + Math.toDegrees(yaw));
     }
 
     @Override
