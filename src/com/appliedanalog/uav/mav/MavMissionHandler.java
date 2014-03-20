@@ -19,6 +19,8 @@ public class MavMissionHandler {
     
     public void handleMissionCurrent(msg_mission_current msg){
         current_mission_seq = msg.seq;
-        //TODO: Notify listener if needed?
+        if(listener != null){
+            //TODO: Notify listener if needed?
+        }
     }
 }

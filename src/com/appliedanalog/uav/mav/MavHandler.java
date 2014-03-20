@@ -96,6 +96,12 @@ public class MavHandler implements MavLinkConnectionListener {
             case msg_raw_imu.MAVLINK_MSG_ID_RAW_IMU:
                 sensorHandler.handleRawImu((msg_raw_imu)msg);
                 break;
+            case msg_vfr_hud.MAVLINK_MSG_ID_VFR_HUD:
+                sensorHandler.handleVfrHud((msg_vfr_hud)msg);
+                break;
+            case msg_ahrs.MAVLINK_MSG_ID_AHRS:
+                sensorHandler.handleAhrs((msg_ahrs)msg);
+                break;
                 
             //Status messages:
             case msg_sys_status.MAVLINK_MSG_ID_SYS_STATUS:
@@ -103,6 +109,15 @@ public class MavHandler implements MavLinkConnectionListener {
                 break;
             case msg_meminfo.MAVLINK_MSG_ID_MEMINFO:
                 statusHandler.handleMemInfo((msg_meminfo)msg);
+                break;
+            case msg_heartbeat.MAVLINK_MSG_ID_HEARTBEAT:
+                statusHandler.handleHeartbeat((msg_heartbeat)msg);
+                break;
+            case msg_statustext.MAVLINK_MSG_ID_STATUSTEXT:
+                statusHandler.handleStatusText((msg_statustext)msg);
+                break;
+            case msg_system_time.MAVLINK_MSG_ID_SYSTEM_TIME:
+                statusHandler.handleSystemTime((msg_system_time)msg);
                 break;
                 
             //Mission messages:
@@ -113,6 +128,12 @@ public class MavHandler implements MavLinkConnectionListener {
             //Control messages:
             case msg_nav_controller_output.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT:
                 controlHandler.handleControllerOutput((msg_nav_controller_output)msg);
+                break;
+            case msg_rc_channels_raw.MAVLINK_MSG_ID_RC_CHANNELS_RAW:
+                controlHandler.handleRawRc((msg_rc_channels_raw)msg);
+                break;
+            case msg_servo_output_raw.MAVLINK_MSG_ID_SERVO_OUTPUT_RAW:
+                controlHandler.handleRawServo((msg_servo_output_raw)msg);
                 break;
                 
             /* Currently unsupported
@@ -138,8 +159,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_fence_fetch_point)msg); break;
              case msg_fence_status.MAVLINK_MSG_ID_FENCE_STATUS:
              ((msg_fence_status)msg); break;
-             case msg_ahrs.MAVLINK_MSG_ID_AHRS:
-             ((msg_ahrs)msg); break;
              case msg_simstate.MAVLINK_MSG_ID_SIMSTATE:
              ((msg_simstate)msg); break;
              case msg_hwstatus.MAVLINK_MSG_ID_HWSTATUS:
@@ -158,10 +177,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_data64)msg); break;
              case msg_data96.MAVLINK_MSG_ID_DATA96:
              ((msg_data96)msg); break;
-             case msg_heartbeat.MAVLINK_MSG_ID_HEARTBEAT:
-             ((msg_heartbeat)msg); break;
-             case msg_system_time.MAVLINK_MSG_ID_SYSTEM_TIME:
-             ((msg_system_time)msg); break;
              case msg_ping.MAVLINK_MSG_ID_PING:
              ((msg_ping)msg); break;
              case msg_change_operator_control.MAVLINK_MSG_ID_CHANGE_OPERATOR_CONTROL:
@@ -190,10 +205,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_local_position_ned)msg); break;
              case msg_rc_channels_scaled.MAVLINK_MSG_ID_RC_CHANNELS_SCALED:
              ((msg_rc_channels_scaled)msg); break;
-             case msg_rc_channels_raw.MAVLINK_MSG_ID_RC_CHANNELS_RAW:
-             ((msg_rc_channels_raw)msg); break;
-             case msg_servo_output_raw.MAVLINK_MSG_ID_SERVO_OUTPUT_RAW:
-             ((msg_servo_output_raw)msg); break;
              case msg_mission_request_partial_list.MAVLINK_MSG_ID_MISSION_REQUEST_PARTIAL_LIST:
              ((msg_mission_request_partial_list)msg); break;
              case msg_mission_write_partial_list.MAVLINK_MSG_ID_MISSION_WRITE_PARTIAL_LIST:
@@ -254,8 +265,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_manual_control)msg); break;
              case msg_rc_channels_override.MAVLINK_MSG_ID_RC_CHANNELS_OVERRIDE:
              ((msg_rc_channels_override)msg); break;
-             case msg_vfr_hud.MAVLINK_MSG_ID_VFR_HUD:
-             ((msg_vfr_hud)msg); break;
              case msg_command_long.MAVLINK_MSG_ID_COMMAND_LONG:
              ((msg_command_long)msg); break;
              case msg_command_ack.MAVLINK_MSG_ID_COMMAND_ACK:
@@ -304,8 +313,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_named_value_float)msg); break;
              case msg_named_value_int.MAVLINK_MSG_ID_NAMED_VALUE_INT:
              ((msg_named_value_int)msg); break;
-             case msg_statustext.MAVLINK_MSG_ID_STATUSTEXT:
-             ((msg_statustext)msg); break;
              case msg_debug.MAVLINK_MSG_ID_DEBUG:
              ((msg_debug)msg); break;
              */

@@ -24,4 +24,16 @@ public abstract class MavControlListener {
      * @param airspeed_err Airspeed error (desired minus current) in m/s
      */
     public void outputPitch(float pitch, float alt_err, float airspeed_err){ }
+    
+    /**
+     * Low level message showing the raw servo values being applied from the MAV controller.
+     * @param vals An array of servo outputs, mapped by channel number, in microseconds of high pulse.
+     */
+    public void servos(short[] vals){ }
+    
+    /**
+     * Low level message showing the raw radio control values being applied from the MAV controller.
+     * @param vals An array of rc inputs, mapped by channel number, in microseconds of high pulse.
+     */
+    public void radioControl(short[] vals){ }
 }

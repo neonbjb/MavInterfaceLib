@@ -1,11 +1,13 @@
 package com.appliedanalog.uav.mav;
 
+import com.MAVLink.Messages.ardupilotmega.msg_ahrs;
 import com.MAVLink.Messages.ardupilotmega.msg_attitude;
 import com.MAVLink.Messages.ardupilotmega.msg_global_position_int;
 import com.MAVLink.Messages.ardupilotmega.msg_gps_raw_int;
 import com.MAVLink.Messages.ardupilotmega.msg_gps_status;
 import com.MAVLink.Messages.ardupilotmega.msg_raw_imu;
 import com.MAVLink.Messages.ardupilotmega.msg_scaled_pressure;
+import com.MAVLink.Messages.ardupilotmega.msg_vfr_hud;
 import com.appliedanalog.uav.mav.listeners.MavSensorListener;
 
 /**
@@ -52,6 +54,14 @@ public class MavSensorHandler {
     }
     
     public void handleRawImu(msg_raw_imu msg){
+        //TODO: Implement.
+    }
+    
+    public void handleVfrHud(msg_vfr_hud hud){
+        //TODO: Use this instead of other data coming in?
+    }
+    
+    public void handleAhrs(msg_ahrs ahrs){
         //TODO: Implement.
     }
     
