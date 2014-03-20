@@ -2,6 +2,10 @@ package com.appliedanalog.uav.mav;
 
 import com.MAVLink.Messages.ardupilotmega.msg_attitude;
 import com.MAVLink.Messages.ardupilotmega.msg_global_position_int;
+import com.MAVLink.Messages.ardupilotmega.msg_gps_raw_int;
+import com.MAVLink.Messages.ardupilotmega.msg_gps_status;
+import com.MAVLink.Messages.ardupilotmega.msg_raw_imu;
+import com.MAVLink.Messages.ardupilotmega.msg_scaled_pressure;
 import com.appliedanalog.uav.mav.listeners.MavSensorListener;
 
 /**
@@ -29,6 +33,26 @@ public class MavSensorHandler {
             listener.altitude(msg.alt, msg.relative_alt);
             listener.groundSpeed(gs, msg.hdg);
         }
+    }
+    
+    public void handleGpsStatus(msg_gps_status msg){
+        //TODO: Use this information for GPS accuracy calculations.
+    }
+    
+    public void handleGpsRaw(msg_gps_raw_int msg){
+        //TODO: something? Perhaps send to same methods that handlePosition() uses.
+    }
+    
+    public void handlePressure(msg_scaled_pressure msg){
+        if(listener != null){
+            float abs_pressure = msg.press_abs;
+            float temp = msg.temperature;
+            listener.pressure(abs_pressure, temp);
+        }
+    }
+    
+    public void handleRawImu(msg_raw_imu msg){
+        //TODO: Implement.
     }
     
     public void setListener(MavSensorListener listener){

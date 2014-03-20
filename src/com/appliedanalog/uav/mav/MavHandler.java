@@ -77,19 +77,49 @@ public class MavHandler implements MavLinkConnectionListener {
     public void onReceiveMessage(MAVLinkMessage msg) {
         //Branch out processing of message to the proper handlers.
         switch (msg.msgid) {
+            //Sensor messages:
             case msg_attitude.MAVLINK_MSG_ID_ATTITUDE:
                 sensorHandler.handleAttitude((msg_attitude) msg);
                 break;
             case msg_global_position_int.MAVLINK_MSG_ID_GLOBAL_POSITION_INT:
                 sensorHandler.handlePosition((msg_global_position_int)msg);
                 break;
+            case msg_gps_status.MAVLINK_MSG_ID_GPS_STATUS:
+                sensorHandler.handleGpsStatus((msg_gps_status)msg);
+                break;
+            case msg_gps_raw_int.MAVLINK_MSG_ID_GPS_RAW_INT:
+                sensorHandler.handleGpsRaw((msg_gps_raw_int)msg);
+                break;
+            case msg_scaled_pressure.MAVLINK_MSG_ID_SCALED_PRESSURE:
+                sensorHandler.handlePressure((msg_scaled_pressure)msg);
+                break;
+            case msg_raw_imu.MAVLINK_MSG_ID_RAW_IMU:
+                sensorHandler.handleRawImu((msg_raw_imu)msg);
+                break;
+                
+            //Status messages:
+            case msg_sys_status.MAVLINK_MSG_ID_SYS_STATUS:
+                statusHandler.handleSysStatus((msg_sys_status)msg);
+                break;
+            case msg_meminfo.MAVLINK_MSG_ID_MEMINFO:
+                statusHandler.handleMemInfo((msg_meminfo)msg);
+                break;
+                
+            //Mission messages:
+            case msg_mission_current.MAVLINK_MSG_ID_MISSION_CURRENT:
+                missionHandler.handleMissionCurrent((msg_mission_current)msg);
+                break;
+                
+            //Control messages:
+            case msg_nav_controller_output.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT:
+                controlHandler.handleControllerOutput((msg_nav_controller_output)msg);
+                break;
+                
             /* Currently unsupported
              case msg_sensor_offsets.MAVLINK_MSG_ID_SENSOR_OFFSETS:
              (((msg_sensor_offsets)msg); break;
              case msg_set_mag_offsets.MAVLINK_MSG_ID_SET_MAG_OFFSETS:
              ((msg_set_mag_offsets)msg); break;
-             case msg_meminfo.MAVLINK_MSG_ID_MEMINFO:
-             ((msg_meminfo)msg); break;
              case msg_ap_adc.MAVLINK_MSG_ID_AP_ADC:
              ((msg_ap_adc)msg); break;
              case msg_digicam_configure.MAVLINK_MSG_ID_DIGICAM_CONFIGURE:
@@ -130,8 +160,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_data96)msg); break;
              case msg_heartbeat.MAVLINK_MSG_ID_HEARTBEAT:
              ((msg_heartbeat)msg); break;
-             case msg_sys_status.MAVLINK_MSG_ID_SYS_STATUS:
-             ((msg_sys_status)msg); break;
              case msg_system_time.MAVLINK_MSG_ID_SYSTEM_TIME:
              ((msg_system_time)msg); break;
              case msg_ping.MAVLINK_MSG_ID_PING:
@@ -152,18 +180,10 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_param_value)msg); break;
              case msg_param_set.MAVLINK_MSG_ID_PARAM_SET:
              ((msg_param_set)msg); break;
-             case msg_gps_raw_int.MAVLINK_MSG_ID_GPS_RAW_INT:
-             ((msg_gps_raw_int)msg); break;
-             case msg_gps_status.MAVLINK_MSG_ID_GPS_STATUS:
-             ((msg_gps_status)msg); break;
              case msg_scaled_imu.MAVLINK_MSG_ID_SCALED_IMU:
              ((msg_scaled_imu)msg); break;
-             case msg_raw_imu.MAVLINK_MSG_ID_RAW_IMU:
-             ((msg_raw_imu)msg); break;
              case msg_raw_pressure.MAVLINK_MSG_ID_RAW_PRESSURE:
              ((msg_raw_pressure)msg); break;
-             case msg_scaled_pressure.MAVLINK_MSG_ID_SCALED_PRESSURE:
-             ((msg_scaled_pressure)msg); break;
              case msg_attitude_quaternion.MAVLINK_MSG_ID_ATTITUDE_QUATERNION:
              ((msg_attitude_quaternion)msg); break;
              case msg_local_position_ned.MAVLINK_MSG_ID_LOCAL_POSITION_NED:
@@ -184,8 +204,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_mission_request)msg); break;
              case msg_mission_set_current.MAVLINK_MSG_ID_MISSION_SET_CURRENT:
              ((msg_mission_set_current)msg); break;
-             case msg_mission_current.MAVLINK_MSG_ID_MISSION_CURRENT:
-             ((msg_mission_current)msg); break;
              case msg_mission_request_list.MAVLINK_MSG_ID_MISSION_REQUEST_LIST:
              ((msg_mission_request_list)msg); break;
              case msg_mission_count.MAVLINK_MSG_ID_MISSION_COUNT:
@@ -224,8 +242,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_set_quad_motors_setpoint)msg); break;
              case msg_set_quad_swarm_roll_pitch_yaw_thrust.MAVLINK_MSG_ID_SET_QUAD_SWARM_ROLL_PITCH_YAW_THRUST:
              ((msg_set_quad_swarm_roll_pitch_yaw_thrust)msg); break;
-             case msg_nav_controller_output.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT:
-             ((msg_nav_controller_output)msg); break;
              case msg_set_quad_swarm_led_roll_pitch_yaw_thrust.MAVLINK_MSG_ID_SET_QUAD_SWARM_LED_ROLL_PITCH_YAW_THRUST:
              ((msg_set_quad_swarm_led_roll_pitch_yaw_thrust)msg); break;
              case msg_state_correction.MAVLINK_MSG_ID_STATE_CORRECTION:
