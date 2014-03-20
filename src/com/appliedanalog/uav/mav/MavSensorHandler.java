@@ -10,6 +10,7 @@ import com.MAVLink.Messages.ardupilotmega.msg_scaled_pressure;
 import com.MAVLink.Messages.ardupilotmega.msg_vfr_hud;
 import com.MAVLink.Messages.ardupilotmega.msg_wind;
 import com.appliedanalog.uav.mav.listeners.MavSensorListener;
+import com.appliedanalog.uav.utils.Log;
 
 /**
  *
@@ -66,6 +67,7 @@ public class MavSensorHandler {
     
     public void handleVfrHud(msg_vfr_hud hud){
         //TODO: Use this instead of other data coming in?
+        Log.ta("VfrHud", "alt=" + hud.alt + " spd=" + hud.airspeed + " gspd=" + hud.groundspeed + " head=" + hud.heading + " throttle=" + hud.throttle);
     }
     
     public void handleAhrs(msg_ahrs ahrs){

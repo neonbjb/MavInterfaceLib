@@ -12,11 +12,12 @@ import com.appliedanalog.uav.utils.Log;
 public class MavConnectionTester implements Runnable{
     public void run(){
         SensorTester sTester = new SensorTester();
-        
+        StatusTester statTester = new StatusTester();
         
         WindowsSerialConnection serialConnection = new WindowsSerialConnection();
         MavHandler mavHandler = new MavHandler(serialConnection);
         mavHandler.setSensorListener(sTester);
+        mavHandler.setStatusListener(statTester);
         serialConnection.start();
         mavHandler.init();
         
