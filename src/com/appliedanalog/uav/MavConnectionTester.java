@@ -23,16 +23,11 @@ public class MavConnectionTester implements Runnable{
         
         try{Thread.sleep(1000);}catch(Exception e){}
         
-        /*msg_param_request_read msg = new msg_param_request_read();
-        msg.param_index = -1;
-        msg.target_system = 1;
-        msg.target_component = 1;
-        msg.setParam_Id("FLTMODE");*/
-        /*msg_param_request_list msg = new msg_param_request_list();
+        msg_param_request_list msg = new msg_param_request_list();
         msg.target_system = 1;
         msg.target_component = 0;
         Log.d("Main", "Sending param request packet.");
-        serialConnection.sendMavPacket(msg.pack());*/
+        serialConnection.sendMavPacket(msg.pack());
         
         
         try{Thread.sleep(10000);}catch(Exception e){}

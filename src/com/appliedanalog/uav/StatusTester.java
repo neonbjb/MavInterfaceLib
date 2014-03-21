@@ -1,7 +1,8 @@
 package com.appliedanalog.uav;
 
-import com.appliedanalog.uav.mav.MavComponentAvailability;
+import com.appliedanalog.uav.mav.types.MavComponentAvailability;
 import com.appliedanalog.uav.mav.listeners.MavStatusListener;
+import com.appliedanalog.uav.mav.types.MavParam;
 import com.appliedanalog.uav.utils.Log;
 
 /**
@@ -30,4 +31,8 @@ public class StatusTester implements MavStatusListener {
         Log.ta(TAG, "Power. Current=" + current + " Voltage=" + voltage + " Batt=" + batteryRemaining);
     }
     
+    @Override
+    public void parameterChanged(MavParam parameter){
+        Log.ta(TAG, "System parameter changed name=" + parameter.name() + " value=" + parameter.value() + " index=" + parameter.index());
+    }
 }

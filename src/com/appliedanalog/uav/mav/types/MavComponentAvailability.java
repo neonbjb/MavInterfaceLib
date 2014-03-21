@@ -1,4 +1,4 @@
-package com.appliedanalog.uav.mav;
+package com.appliedanalog.uav.mav.types;
 
 import com.appliedanalog.uav.utils.Log;
 

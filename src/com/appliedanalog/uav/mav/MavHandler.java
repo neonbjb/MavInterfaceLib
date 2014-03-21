@@ -72,6 +72,15 @@ public class MavHandler implements MavLinkConnectionListener {
         }
         connection.sendMavPacket(msg.pack());
     }
+    
+    /**
+     * Retrieves a handle to an interface that caches system status values that are
+     * passively sent by MAVLink.
+     * @return 
+     */
+    public MavSystemStatusInterface getSystemStatusInterface(){
+        return statusHandler;
+    }
 
     @Override
     public void onReceiveMessage(MAVLinkMessage msg) {
@@ -124,6 +133,9 @@ public class MavHandler implements MavLinkConnectionListener {
                 break;
             case msg_hwstatus.MAVLINK_MSG_ID_HWSTATUS:
                 statusHandler.handleHwStatus((msg_hwstatus)msg);
+                break;
+            case msg_param_value.MAVLINK_MSG_ID_PARAM_VALUE:
+                statusHandler.handleParamValue((msg_param_value)msg);
                 break;
                 
             //Mission messages:
@@ -197,8 +209,6 @@ public class MavHandler implements MavLinkConnectionListener {
              ((msg_param_request_read)msg); break;
              case msg_param_request_list.MAVLINK_MSG_ID_PARAM_REQUEST_LIST:
              ((msg_param_request_list)msg); break;
-             case msg_param_value.MAVLINK_MSG_ID_PARAM_VALUE:
-             ((msg_param_value)msg); break;
              case msg_param_set.MAVLINK_MSG_ID_PARAM_SET:
              ((msg_param_set)msg); break;
              case msg_scaled_imu.MAVLINK_MSG_ID_SCALED_IMU:
